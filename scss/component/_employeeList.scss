@@ -82,4 +82,12 @@
     font-size: .8rem;
     color: $grey--xdark;
   }
+
+  // no results
+  @include e(noResult) {
+    font-size: 3rem;
+    font-weight: $font-weight--bold;
+    text-align: center;
+    color: $grey--xdark;
+  }
 }
