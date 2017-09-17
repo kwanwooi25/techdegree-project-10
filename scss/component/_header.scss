@@ -1,13 +1,18 @@
 .header {
   background-color: $white;
+  padding: 1em;
+  text-align: center;
   @extend %shadow__bottom;
 
   @include e(title) {
     font-family: 'Righteous', cursive;
     margin: 0;
-    padding: .5em 2em;
+    padding: 0 .25em;
     font-size: 1.5rem;
-    text-align: center;
+
+    @include mq(md) {
+      display: inline-block;
+    }
   }
 
   @include e(sub) {

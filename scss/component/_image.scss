@@ -1,0 +1,6 @@
+.image__employeeList {
+  margin: 1em;
+  border: 1px solid $color-secondary;
+  border-radius: 50%;
+  @extend %shadow__bottom;
+}

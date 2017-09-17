@@ -1,0 +1,8 @@
+.btn {
+  @extend %btn;
+
+  // button for employeeList
+  @include e(employeeList) {
+    width: 10em;
+  }
+}

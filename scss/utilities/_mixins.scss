@@ -22,8 +22,13 @@
       @content;
     }
   }
-  @else if $breakpoint == "lg" {
+	@else if $breakpoint == "lg" {
     @media (min-width: $break-lg) {
+      @content;
+    }
+  }
+  @else if $breakpoint == "xl" {
+    @media (min-width: $break-xl) {
       @content;
     }
   }

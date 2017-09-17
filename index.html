@@ -10,20 +10,25 @@
 <body>
   <header>
     <div class="header">
-      <h1 class="header__title">Awesome StartUp Employee Directory</h1>
+      <h1 class="header__title">Awesome StartUp</h1>
+      <h1 class="header__title">Employee Directory</h1>
     </div>
     <div class="header__sub">
       <div class="header__sub__item">
-        <button class="btn__createEmployee">Create</button>
+        <button class="btn btn__createEmployee">Create</button>
       </div>
       <div class="header__sub__item">
-        <input class="input__searchEmployee" type="text">
-        <button class="btn__searchEmployee" type="submit"></button>
+        <input class="input input__searchEmployee"
+               type="text"
+               placeholder="Search for Employee"
+               onfocus='placeholder=""'
+               onblur='placeholder="Search for Employee"'>
+        <button class="btn btn__searchEmployee" type="submit">Search</button>
       </div>
     </div>
   </header>
   <main>
-    <ul id="employee-list"></ul>
+    <ul id="employeeList" class="employeeList"></ul>
   </main>
   <footer class="footer">
     <p class="copyright">&copy; Kwanwoo Jeong 2017</p>
@@ -33,6 +38,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
   <!-- custom scripts -->
+  <script type="text/javascript" src="js/prototype.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
