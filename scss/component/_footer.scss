@@ -1,0 +1,12 @@
+.footer {
+  background-color: $white;
+  margin-top: 1em;
+  padding: .5em;
+  text-align: center;
+
+  @extend %shadow__top;
+}
+
+.copyright {
+  margin: 0;
+}

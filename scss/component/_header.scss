@@ -1,0 +1,21 @@
+.header {
+  background-color: $white;
+  @extend %shadow__bottom;
+
+  @include e(title) {
+    font-family: 'Righteous', cursive;
+    margin: 0;
+    padding: .5em 2em;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  @include e(sub) {
+    @include flexbox;
+    @include flex-alignment(space-between, center);
+
+    @include e(item) {
+      padding: 1em;
+    }
+  }
+}

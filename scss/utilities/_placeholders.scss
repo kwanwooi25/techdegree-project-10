@@ -1,0 +1,9 @@
+%shadow {
+  @include e(bottom) {
+    box-shadow: 2px 2px 10px rgba($grey, .5);
+  }
+
+  @include e(top) {
+    box-shadow: -2px -2px 10px rgba($grey, .5);
+  }
+}

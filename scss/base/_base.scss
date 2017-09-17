@@ -1,0 +1,14 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $base__font-family;
+  font-size: $base__font-size;
+  font-weight: $base__font-weight;
+  line-height: $base__line-height;
+  color: $black;
+  background-color: $grey--xlight;
+}

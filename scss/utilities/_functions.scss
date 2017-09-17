@@ -1,0 +1,10 @@
+// import google font
+@if variable-exist($font-url--google) {
+  @import url($font-url--google);
+}
+
+// set the context width for the grid
+@function grid-context($grid-col-width, $grid-col-count ,$grid-gutter-width) {
+  $grid-context: ($grid-col-width * $grid-col-count) + ($grid-gutter-width * ($grid-col-count - 1));
+  @return $grid-context;
+}
