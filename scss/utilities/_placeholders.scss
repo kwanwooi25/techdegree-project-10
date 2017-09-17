@@ -21,7 +21,7 @@
   margin: 0 auto .5em;
   padding: .5em;
   color: $white;
-  background-color: $color-secondary;
+  background-color: $color-primary;
   border: none;
   border-radius: .5em;
   transition: .2s;
@@ -43,6 +43,6 @@
   border-bottom: 1px solid $grey--xdark;
   transition: .2s;
   &:focus {
-    border-bottom-color: $color-secondary;
+    border-bottom-color: $color-primary;
   }
 }

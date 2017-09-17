@@ -99,25 +99,3 @@
 		@error "'#{$vertical}' is not valid. "
 	};
 }
-
-// Grid Columns
-@mixin grid-columns {
-
-	// set grid widths
-	@include mq(md) {
-		@for $i from 1 through $grid-col-count {
-			$context: grid-context($grid-col-width, $grid-col-count ,$grid-gutter-width) !global;
-			$target: ($grid-col-width * $i) + ($grid-gutter-width * ($i - 1));
-
-			// Generate column modifier classes
-			&--#{$i} {
-				width: percentage($target / $context);
-				padding: $grid-gutter-width;
-				border-left: 1px solid $grey--xlight;
-				&:first-child {
-					border: none;
-				}
-			}
-	  }
-	}
-}
