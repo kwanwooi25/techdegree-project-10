@@ -1,19 +1,18 @@
-/*===========================================================
-
-===========================================================*/
-
 // Variables
 let employeesArray = [];
+let employeesArrayFiltered = [];
 const employeeList = document.getElementById('employeeList');
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modal__close');
+const inputSearchEmployee = document.getElementById('input__searchEmployee');
 
 // Get data from Random User Generator API
 $.ajax({
-  url: 'https://randomuser.me/api/?results=12&nat=us,gb,au',
+  url: 'https://randomuser.me/api/?results=12&nat=us',
   dataType: 'json',
   success: (data) => {
     employeesArray = data.results;
+    employeesArrayFiltered = data.results;
     updateEmployeeList(employeesArray);
   }
 });
@@ -21,13 +20,13 @@ $.ajax({
 function updateEmployeeList(data) {
   let html = '';
 
-  for (let i = 0; i < employeesArray.length; i++) {
-    let thumbnail = employeesArray[i].picture.medium;
-    let name = capitalize(employeesArray[i].name.first +
+  for (let i = 0; i < employeesArrayFiltered.length; i++) {
+    let thumbnail = employeesArrayFiltered[i].picture.medium;
+    let name = capitalize(employeesArrayFiltered[i].name.first +
                           ' ' +
-                          employeesArray[i].name.last);
-    let email = employeesArray[i].email;
-    let city = capitalize(employeesArray[i].location.city);
+                          employeesArrayFiltered[i].name.last);
+    let email = employeesArrayFiltered[i].email;
+    let city = capitalize(employeesArrayFiltered[i].location.city);
 
     html += `
       <li class="employeeList__item">
@@ -57,62 +56,80 @@ function hideModal() {
 }
 
 employeeList.addEventListener('click', (e) => {
-  let index = getIndex(e.target.parentNode.parentNode);
-  let html = '';
+  if (e.target.tagName === 'BUTTON') {
+    let index = getIndex(e.target.parentNode.parentNode);
+    let employee = employeesArrayFiltered[index];
+    let html = '';
 
-  let image = employeesArray[index].picture.large;
-  let name = capitalize(employeesArray[index].name.first +
-                        ' ' +
-                        employeesArray[index].name.last);
-  let email = employeesArray[index].email;
-  let city = capitalize(employeesArray[index].location.city);
-  let phone = employeesArray[index].phone;
-  let address = capitalize(employeesArray[index].location.street) +
-                ', ' +
-                capitalize(employeesArray[index].location.state) +
-                ' ' +
-                employeesArray[index].location.postcode;
-  let birthday = employeesArray[index].dob.substring(8, 10) +
-                '/' +
-                employeesArray[index].dob.substring(5, 7) +
-                '/' +
-                employeesArray[index].dob.substring(0, 4);
-  let statePrev = "";
-  let stateNext = "";
+    let image = employee.picture.large;
+    let name = capitalize(employee.name.first +
+                          ' ' +
+                          employee.name.last);
+    let email = employee.email;
+    let city = capitalize(employee.location.city);
+    let phone = employee.phone;
+    let address = capitalize(employee.location.street) +
+                  ', ' +
+                  capitalize(employee.location.state) +
+                  ' ' +
+                  employee.location.postcode;
+    let birthday = employee.dob.substring(8, 10) +
+                  '/' +
+                  employee.dob.substring(5, 7) +
+                  '/' +
+                  employee.dob.substring(0, 4);
+    let statePrev = "";
+    let stateNext = "";
 
-  if(index === 0) {
-    statePrev = "disabled";
+    if(index === 0) {
+      statePrev = "disabled";
+    }
+
+    if(index === employeesArrayFiltered.length - 1) {
+      stateNext = "disabled";
+    }
+
+    html = `
+      <div class="modal__container">
+        <div class="modal__closeContainer">
+          <span id="modal__close" class="modal__close" onclick="hideModal();">&times;</span>
+        </div>
+        <div class="modal__imageContainer">
+          <img class="modal__image" src="${image}" alt="${name}">
+        </div>
+        <div class="modal__textContainer">
+          <p class="modal__text modal__name">${name}</p>
+          <a class="modal__link modal__email" href="mailto:${email}">${email}</a>
+          <p class="modal__text modal__city">${city}</p>
+        </div>
+        <div class="modal__textContainer">
+          <a class="modal__link modal__phone" href="tel:${phone}">${phone}</a>
+          <p class="modal__text modal__address">${address}</p>
+          <p class="modal__text modal__birthday">Birthday: ${birthday}</p>
+        </div>
+        <div class="modal__buttonContainer">
+          <button class="btn__modal prev" ${statePrev}>PREV</button>
+          <button class="btn__modal next" ${stateNext}>NEXT</button>
+        </div>
+      </div>
+    `;
+
+    modal.innerHTML = html;
+    modal.style.display = 'block';
   }
+})
 
-  if(index === employeesArray.length - 1) {
-    stateNext = "disabled";
+inputSearchEmployee.addEventListener('keyup', (e) => {
+  let searchValue = e.target.value.toLowerCase();
+  employeesArrayFiltered = [];
+  for (let i = 0; i < employeesArray.length; i++) {
+    let name = employeesArray[i].name.first +
+              ' ' +
+              employeesArray[i].name.last;
+    if (name.includes(searchValue)) {
+      employeesArrayFiltered.push(employeesArray[i]);
+      console.log(employeesArray[i]);
+    }
   }
-  
-  html = `
-    <div class="modal__container">
-      <div class="modal__closeContainer">
-        <span id="modal__close" class="modal__close" onclick="hideModal();">&times;</span>
-      </div>
-      <div class="modal__imageContainer">
-        <img class="modal__image" src="${image}" alt="${name}">
-      </div>
-      <div class="modal__textContainer">
-        <p class="modal__text modal__name">${name}</p>
-        <a class="modal__link modal__email" href="mailto:${email}">${email}</a>
-        <p class="modal__text modal__city">${city}</p>
-      </div>
-      <div class="modal__textContainer">
-        <a class="modal__link modal__phone" href="tel:${phone}">${phone}</a>
-        <p class="modal__text modal__address">${address}</p>
-        <p class="modal__text modal__birthday">Birthday: ${birthday}</p>
-      </div>
-      <div class="modal__buttonContainer">
-        <button class="btn__modal prev" ${statePrev}>PREV</button>
-        <button class="btn__modal next" ${stateNext}>NEXT</button>
-      </div>
-    </div>
-  `;
-
-  modal.innerHTML = html;
-  modal.style.display = 'block';
+  updateEmployeeList(employeesArrayFiltered);
 })

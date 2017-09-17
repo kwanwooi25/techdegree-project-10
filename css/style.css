@@ -535,6 +535,12 @@ body {
   border: 1px solid #8FC93A;
   border-radius: 50%; }
 
+.input {
+  width: 15em; }
+  @media (min-width: 768px) {
+    .input {
+      width: 20em; } }
+
 .btn__employeeList {
   width: 10em; }
 .btn__modal {
@@ -671,7 +677,7 @@ body {
     color: #8FC93A;
     margin: .5em 0;
     transition: .25s; }
-    .modal__link:hover, .modal__link:focus {
+    .modal__link:hover {
       color: #828382; }
   .modal__buttonContainer {
     padding: 1em 1em 0; }
