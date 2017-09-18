@@ -2,8 +2,10 @@
   background-color: $white;
   padding: 1em;
   text-align: center;
+  z-index: 999;
   @extend %shadow__bottom;
 
+  // company name and title of the page
   @include e(title) {
     font-family: 'Righteous', cursive;
     margin: 0;
@@ -15,12 +17,39 @@
     }
   }
 
+  // sub-header section where buttons and search field laid out
   @include e(sub) {
+    background-color: rgba($grey--xlight, .9);
+    z-index: 999;
     @include flexbox;
     @include flex-alignment(space-between, center);
 
     @include e(item) {
-      padding: 1em;
+      padding: .5em;
+      overflow: hidden;
     }
+  }
+
+  @include e(messageWrapper) {
+    width: 70%;
+    margin-top: -3em;
+    left: 15%;
+    position: absolute;
+    text-align: center;
+    background-color: rgba($grey--xxdark, .7);
+    border-radius: .5em;
+    opacity: 0;
+    z-index: 9999;
+    transition: 1s ease-in-out;
+    @extend %shadow__bottom;
+    &.show {
+      margin-top: .5em;
+      opacity: 1;
+    }
+  }
+
+  @include e(message) {
+    font-size: 1.2rem;
+    color: $grey--xxlight;
   }
 }

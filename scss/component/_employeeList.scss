@@ -42,7 +42,7 @@
   // employeeList row wrapper
   @include e(wrapperRow) {
     @include flexbox;
-    @include flex-alignment(start, center);
+    @include flex-alignment(center, center);
   }
 
   // employeeList image wrapper

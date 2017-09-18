@@ -12,3 +12,21 @@ body {
   color: $black;
   background-color: $grey--xlight;
 }
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+main {
+  margin-top: 8.75rem;
+  margin-bottom: 2.5rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

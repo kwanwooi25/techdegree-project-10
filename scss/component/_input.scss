@@ -1,6 +1,6 @@
 .input {
   @extend %input;
-  width: 15em;
+  width: 12em;
 
   @include mq(lg) {
     width: 20em;

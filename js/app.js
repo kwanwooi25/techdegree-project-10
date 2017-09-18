@@ -1,13 +1,20 @@
-// Variables
-let employeesArray = [];
-let employeesArrayFiltered = [];
-let currentIndex;
-const employeeList = document.getElementById('employeeList');
-const modal = document.getElementById('modal');
-const modalClose = document.getElementById('modal__close');
-const inputSearchEmployee = document.getElementById('input__searchEmployee');
+/*=============================================================
+ Variables
+=============================================================*/
+var employeesArrayAll = [];
+var employeesArrayFiltered = [];
+var currentIndex;
+var employeeList = document.getElementById('employeeList');
+var modal = document.getElementById('modal');
+var btnAddEmployee = document.getElementById('btn__addEmployee');
+var btnRemoveEmployee = document.getElementById('btn__removeEmployee');
+var inputSearchEmployee = document.getElementById('input__searchEmployee');
+var messageWrapper = document.getElementById('messageWrapper');
+var message = document.getElementById('message');
 
-// Get data from Random User Generator API
+/*=============================================================
+ Get data from Random User Generator API
+=============================================================*/
 $.ajax({
   url: 'https://randomuser.me/api/?results=12&nat=us',
   dataType: 'json',
@@ -15,97 +22,107 @@ $.ajax({
     employeesArrayAll = data.results;
     employeesArrayFiltered = data.results;
     updateEmployeeList('');
-    console.log(employeesArrayAll);
   }
 });
 
+/*=============================================================
+ Function to filter employees list
+=============================================================*/
 function updateEmployeeList(searchValue) {
-  let html = '';
 
+  // reset filtered array and html
   employeesArrayFiltered = [];
   employeeList.innerHTML = '';
-  for (let i = 0; i < employeesArrayAll.length; i++) {
-    let name = employeesArrayAll[i].name.first +
+
+  for (var i = 0; i < employeesArrayAll.length; i++) {
+    var name = employeesArrayAll[i].name.first +
               ' ' +
               employeesArrayAll[i].name.last;
     if (name.includes(searchValue)) {
-      html += appendLItoEmployeeList(employeesArrayAll[i]);
+      employeesArrayFiltered.push(employeesArrayAll[i]);
     }
   }
 
-  if (employeesArrayFiltered.length === 0) {
+  displayEmployeeList(employeesArrayFiltered);
+}
+
+/*=============================================================
+ Function to set the html for employees list
+=============================================================*/
+function displayEmployeeList(employees) {
+  var html = '';
+  if (employees.length === 0) {
     html = `
       <p class="employeeList__noResult">
         Cannot find any employee!
       </p>
     `;
-  }
+  } else {
+    for (var i = 0; i < employees.length; i++) {
+      var thumbnail = employees[i].picture.medium;
+      var name = capitalize(employees[i].name.first +
+                            ' ' +
+                            employees[i].name.last);
+      var email = employees[i].email;
+      var city = capitalize(employees[i].location.city);
 
+      html += `
+        <li class="employeeList__item">
+          <div class="employeeList__wrapperRow">
+            <div class="employeeList__wrapperImage">
+              <img class="image__employeeList" src="${thumbnail}" alt="${name}">
+            </div>
+            <div class="employeeList__wrapperText">
+              <p class="employeeList__name">${name}</p>
+              <p class="employeeList__email">${email}</p>
+              <p class="employeeList__city">${city}</p>
+            </div>
+          </div>
+          <div class="employeeList__wrapperRow">
+            <button class="btn btn__employeeList">More Info</button>
+          </div>
+        </li>
+      `;
+    }
+  }
   employeeList.innerHTML = html;
 }
 
-function appendLItoEmployeeList(employee) {
-  employeesArrayFiltered.push(employee);
-  let thumbnail = employee.picture.medium;
-  let name = capitalize(employee.name.first +
-                        ' ' +
-                        employee.name.last);
-  let email = employee.email;
-  let city = capitalize(employee.location.city);
-
-  return `
-    <li class="employeeList__item">
-      <div class="employeeList__wrapperRow">
-        <div class="employeeList__wrapperImage">
-          <img class="image__employeeList" src="${thumbnail}" alt="${name}">
-        </div>
-        <div class="employeeList__wrapperText">
-          <p class="employeeList__name">${name}</p>
-          <p class="employeeList__email">${email}</p>
-          <p class="employeeList__city">${city}</p>
-        </div>
-      </div>
-      <div class="employeeList__wrapperRow">
-        <button class="btn btn__employeeList">More Info</button>
-      </div>
-    </li>
-  `;
-}
-
-// hide modal on modal close button click
+/*=============================================================
+ Function to hide modal
+=============================================================*/
 function hideModal() {
   modal.style.display = 'none';
 }
 
-// show modal
 /*=============================================================
- Show modal
+ Function to display modal
  1. when 'more info' button clicked
  2. when 'prev' or 'next' button clicked
 =============================================================*/
 function showModal(index) {
-  let employee = employeesArrayFiltered[index];
-  let html = '';
+  var employee = employeesArrayFiltered[index];
+  var html = '';
 
-  let image = employee.picture.large;
-  let name = capitalize(employee.name.first +
+  var image = employee.picture.large;
+  var name = capitalize(employee.name.first +
                         ' ' +
                         employee.name.last);
-  let email = employee.email;
-  let city = capitalize(employee.location.city);
-  let phone = employee.phone;
-  let address = capitalize(employee.location.street) +
+  var email = employee.email;
+  var city = capitalize(employee.location.city);
+  var phone = employee.phone;
+  var address = capitalize(employee.location.street) +
                 ', ' +
                 capitalize(employee.location.state) +
                 ' ' +
                 employee.location.postcode;
-  let birthday = employee.dob.substring(8, 10) +
+  var birthday = employee.dob.substring(8, 10) +
                 '/' +
                 employee.dob.substring(5, 7) +
                 '/' +
                 employee.dob.substring(0, 4);
-  let statePrev = "";
-  let stateNext = "";
+  var statePrev = "";
+  var stateNext = "";
 
   // disable 'prev' button for 1st employee
   if(index === 0) statePrev = "disabled";
@@ -143,16 +160,43 @@ function showModal(index) {
   modal.style.display = 'block';
 }
 
-// on 'more infor' button clicked
+/*=============================================================
+ Function to show message
+=============================================================*/
+function showMessage(text) {
+  message.innerHTML = text;
+  messageWrapper.classList.add('show');
+  setTimeout(hideMessage, 5000);
+}
+
+/*=============================================================
+ Function to hide message
+=============================================================*/
+function hideMessage() {
+  messageWrapper.classList.remove('show');
+}
+
+/*=============================================================
+ Click handler for 'more info' button
+ 1. get the index of <li> clicked
+ 2. display modal with detailed information of the employee
+=============================================================*/
 employeeList.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON') {
+
+    // function 'getIndex()' is defined in 'prototype.js'
     currentIndex = getIndex(e.target.parentNode.parentNode);
     showModal(currentIndex);
   }
 })
 
+/*=============================================================
+ Click handler for modal
+ 1. when 'prev' or 'next' button clicked
+ 2. when 'close' button clicked
+=============================================================*/
 modal.addEventListener('click', (e) => {
-  let clicked = e.target;
+  var clicked = e.target;
 
   // 'prev', 'next' button click event
   if (clicked.tagName === 'BUTTON') {
@@ -165,7 +209,46 @@ modal.addEventListener('click', (e) => {
   if (clicked.id === 'modal__close') hideModal();
 })
 
+/*=============================================================
+ update employee list as user types in to search for employees
+=============================================================*/
 inputSearchEmployee.addEventListener('keyup', (e) => {
-  let searchValue = e.target.value.toLowerCase();
+  var searchValue = e.target.value.toLowerCase();
   updateEmployeeList(searchValue);
+})
+
+/*=============================================================
+ Function to add another employee
+=============================================================*/
+btnAddEmployee.addEventListener('click', (e) => {
+  $.ajax({
+    url: 'https://randomuser.me/api/?results=1&nat=us',
+    dataType: 'json',
+    success: (data) => {
+      employeesArrayAll.push(data.results[0]);
+      employeesArrayFiltered.push(data.results[0]);
+      displayEmployeeList(employeesArrayFiltered);
+
+      var name = capitalize(data.results[0].name.first +
+                            ' ' +
+                            data.results[0].name.last);
+      var text = 'New employee has been added! : ' + name;
+      showMessage(text);
+    }
+  });
+})
+
+/*=============================================================
+ Function to remove the last employee
+=============================================================*/
+btnRemoveEmployee.addEventListener('click', (e) => {
+  var lastEmployee = employeesArrayAll[employeesArrayAll.length-1];
+  var name = capitalize(lastEmployee.name.first +
+                        ' ' +
+                        lastEmployee.name.last);
+  var text = 'Employee has been removed! : ' + name;
+  employeesArrayAll.pop();
+  employeesArrayFiltered.pop();
+  displayEmployeeList(employeesArrayFiltered);
+  showMessage(text);
 })
