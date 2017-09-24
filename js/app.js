@@ -10,7 +10,6 @@ var btnAddEmployee = document.getElementById('btn__addEmployee');
 var btnRemoveEmployee = document.getElementById('btn__removeEmployee');
 var inputSearchEmployee = document.getElementById('input__searchEmployee');
 var messageWrapper = document.getElementById('messageWrapper');
-var message = document.getElementById('message');
 
 /*=============================================================
  Get data from Random User Generator API
@@ -164,9 +163,12 @@ function showModal(index) {
  Function to show message
 =============================================================*/
 function showMessage(text) {
-  message.innerHTML = text;
+  var html = `
+    <p class="header__message">${text}</p>
+  `;
+  messageWrapper.innerHTML = html;
   messageWrapper.classList.add('show');
-  setTimeout(hideMessage, 5000);
+  setTimeout(hideMessage, 3000);
 }
 
 /*=============================================================

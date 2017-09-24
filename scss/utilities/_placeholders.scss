@@ -1,33 +1,35 @@
 %shadow {
   @include e(bottom) {
-    box-shadow: 2px 2px 10px rgba($grey, .5);
+    box-shadow: 1px 1px 4px rgba($grey, .7);
 
     @include e(up) {
-      box-shadow: 4px 4px 10px rgba($grey, .5);
+      box-shadow: 2px 2px 4px rgba($grey, .7);
     }
   }
 
   @include e(top) {
-    box-shadow: -2px -2px 10px rgba($grey, .5);
+    box-shadow: -1px -1px 4px rgba($grey, .7);
   }
 }
 
 %hover {
-  transform: translateX(-2px) translateY(-2px);
+  transform: translateX(-1px) translateY(-1px);
 }
 
 %btn {
   font-size: 1rem;
-  margin: .5em;
-  padding: .5em;
+  margin: .25em;
+  padding: .5em .75em;
   color: $white;
   background-color: $color-primary;
-  border: none;
+  border: 1px solid $color-primary;
   border-radius: .5em;
   transition: .2s;
   @extend %shadow__bottom;
   &:hover {
     cursor: pointer;
+    color: $color-primary;
+    background-color: $white;
     @extend %hover;
     @extend %shadow__bottom__up;
   }

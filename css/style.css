@@ -1,25 +1,27 @@
 @import url("https://fonts.googleapis.com/css?family=Righteous|Poppins:300,400,600,800");
 .btn, .header, .header__messageWrapper, .employeeList__item, .image__employeeList, .modal__image {
-  box-shadow: 2px 2px 10px rgba(181, 182, 181, 0.5); }
+  box-shadow: 1px 1px 4px rgba(181, 182, 181, 0.7); }
   .btn:hover, .employeeList__item:hover {
-    box-shadow: 4px 4px 10px rgba(181, 182, 181, 0.5); }
+    box-shadow: 2px 2px 4px rgba(181, 182, 181, 0.7); }
 .footer {
-  box-shadow: -2px -2px 10px rgba(181, 182, 181, 0.5); }
+  box-shadow: -1px -1px 4px rgba(181, 182, 181, 0.7); }
 
 .btn:hover, .employeeList__item:hover {
-  transform: translateX(-2px) translateY(-2px); }
+  transform: translateX(-1px) translateY(-1px); }
 
 .btn {
   font-size: 1rem;
-  margin: .5em;
-  padding: .5em;
+  margin: .25em;
+  padding: .5em .75em;
   color: #fff;
   background-color: #8FC93A;
-  border: none;
+  border: 1px solid #8FC93A;
   border-radius: .5em;
   transition: .2s; }
   .btn:hover {
-    cursor: pointer; }
+    cursor: pointer;
+    color: #8FC93A;
+    background-color: #fff; }
 
 .input {
   font-size: 1rem;
@@ -444,8 +446,11 @@ header {
   z-index: 999; }
 
 main {
-  margin-top: 8.75rem;
+  margin-top: 10.75rem;
   margin-bottom: 2.5rem; }
+  @media (min-width: 580px) {
+    main {
+      margin-top: 8.75rem; } }
 
 footer {
   position: fixed;
@@ -461,7 +466,9 @@ footer {
     font-family: 'Righteous', cursive;
     margin: 0;
     padding: 0 .25em;
-    font-size: 1.5rem; }
+    font-size: 1.5rem;
+    color: #8FC93A;
+    text-shadow: 1px 1px 3px rgba(181, 182, 181, 0.5); }
     @media (min-width: 580px) {
       .header__title {
         display: inline-block; } }
@@ -494,10 +501,12 @@ footer {
     border-radius: .5em;
     opacity: 0;
     z-index: 9999;
-    transition: 1s ease-in-out; }
+    transition: .5s ease-out;
+    visibility: hidden; }
     .header__messageWrapper.show {
       margin-top: .5em;
-      opacity: 1; }
+      opacity: 1;
+      visibility: visible; }
   .header__message {
     font-size: 1.2rem;
     color: white; }

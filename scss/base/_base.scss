@@ -21,8 +21,12 @@ header {
 }
 
 main {
-  margin-top: 8.75rem;
+  margin-top: 10.75rem;
   margin-bottom: 2.5rem;
+
+  @include mq(md) {
+    margin-top: 8.75rem;
+  }
 }
 
 footer {
