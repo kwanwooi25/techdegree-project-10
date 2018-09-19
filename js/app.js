@@ -115,11 +115,11 @@ function showModal(index) {
                 capitalize(employee.location.state) +
                 ' ' +
                 employee.location.postcode;
-  var birthday = employee.dob.substring(8, 10) +
+  var birthday = employee.dob.date.substring(8, 10) +
                 '/' +
-                employee.dob.substring(5, 7) +
+                employee.dob.date.substring(5, 7) +
                 '/' +
-                employee.dob.substring(0, 4);
+                employee.dob.date.substring(0, 4);
   var statePrev = "";
   var stateNext = "";
 
